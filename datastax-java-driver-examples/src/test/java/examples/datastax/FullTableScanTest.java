@@ -3,6 +3,8 @@ package examples.datastax;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.datastax.driver.core.ResultSet;
@@ -15,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link FullTableScan}.
@@ -62,15 +65,18 @@ public class FullTableScanTest {
 
     when(session.execute(any(Statement.class))).thenReturn(rs);
     Row row = mock(Row.class);
-    when(rs.iterator()).thenReturn(new MockIterator(10, row));
+    when(rs.iterator())
+      .thenReturn(new MockIterator(10, row))
+      .thenReturn(Collections.<Row>emptyList().iterator());
 
     control.tableScan(session, v -> count.incrementAndGet());
 
     assertEquals(10, count.get());
+    verify(session, times(2)).execute(any(Statement.class));
   }
 
   /**
-   * Given: table has 3x {@link FullTableScan#limit()} rows
+   * Given: table has ~3x {@link FullTableScan#limit()} rows
    * When: run tableScan()
    * Then: observe 3 batches, observe all rows
    */
@@ -97,13 +103,15 @@ public class FullTableScanTest {
       // result set 2
       .thenReturn(new MockIterator(control.limit(), row))
       // result set 3
-      .thenReturn(new MockIterator(control.limit(), row))
+      .thenReturn(new MockIterator(control.limit() - 10, row))
       // result set 4 (is empty)
       .thenReturn(Collections.<Row>emptyList().iterator());
 
     control.tableScan(session, v -> count.incrementAndGet());
 
-    assertEquals(control.limit() * 3, count.get());
+    assertEquals((control.limit() * 3) - 10, count.get());
+
+    verify(session, times(4)).execute(any(Statement.class));
   }
 
   private final FullTableScan<String> control = new FullTableScan<String>() {
