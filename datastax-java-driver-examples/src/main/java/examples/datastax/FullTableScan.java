@@ -65,8 +65,12 @@ public interface FullTableScan<T> {
     return 10000;
   }
 
+  /**
+   *
+   * @return the consistencylevel for the table scan (defaults to {@link ConsistencyLevel#ONE}
+   */
   default ConsistencyLevel consistencyLevel() {
-    return ConsistencyLevel.ALL;
+    return ConsistencyLevel.ONE;
   }
   /**
    *
