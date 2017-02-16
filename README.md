@@ -1,6 +1,6 @@
 # code-examples
 
-I use this project to
+I use this project to track examples of technologies I have experience and interest in.
 
 ## Developer Requirements
 
