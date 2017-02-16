@@ -7,7 +7,8 @@ import java.util.UUID;
 /**
  * Simple type describing a video.
  *
- * Similar to the "killrvideo" example provided in the DS220 class.
+ * Similar to the "killrvideo" example provided in the DS220 class from the
+ * <a href="https://academy.datastax.com/">DataStax Academy</a>.
  */
 public class Video {
 
