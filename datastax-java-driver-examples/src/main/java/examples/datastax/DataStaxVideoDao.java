@@ -15,6 +15,7 @@ import examples.VideoDao;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -70,7 +71,7 @@ public class DataStaxVideoDao implements VideoDao, FullTableScan<Video> {
   }
 
   @Override
-  public Video retrieve(String videoId) {
+  public Video retrieve(UUID videoId) {
     Statement select = QueryBuilder.select().all().from(keyspace, table)
       .where(eq("video_id", videoId));
     ResultSet rs = session.execute(select);

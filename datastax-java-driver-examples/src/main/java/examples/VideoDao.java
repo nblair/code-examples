@@ -2,6 +2,7 @@ package examples;
 
 import com.google.common.collect.ImmutableList;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -28,7 +29,7 @@ public interface VideoDao {
    * @param videoId the target {@link Video#getVideoId()}
    * @return the matching {@link Video}, or null
    */
-  Video retrieve(String videoId);
+  Video retrieve(UUID videoId);
 
   /**
    * WARNING: this is an expensive operation.
