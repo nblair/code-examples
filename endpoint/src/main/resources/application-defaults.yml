@@ -1,0 +1,6 @@
+cassandra:
+  contactPoints:
+    - jenova
+  validationTimeout: 2 seconds
+swagger:
+  resourcePackage: examples.resources

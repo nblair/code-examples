@@ -1,4 +1,5 @@
 rootProject.name = 'code-examples'
 include 'datastax-java-driver-examples'
 include 'models'
+include 'endpoint'
 
