@@ -7,7 +7,7 @@ dependencies {
   compile project(':models')
   compile "com.datastax.cassandra:cassandra-driver-core:$datastaxVersion"
   compile "com.datastax.cassandra:cassandra-driver-extras:$datastaxVersion"
-  //compile "com.datastax.cassandra:cassandra-driver-mapping:$datastaxVersion"
+  compile "javax.inject:javax.inject:1"
 
   compile "org.springframework:spring-context:$springFrameworkVersion"
 

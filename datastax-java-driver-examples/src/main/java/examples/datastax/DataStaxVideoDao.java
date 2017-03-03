@@ -17,10 +17,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+import javax.inject.Singleton;
 
 /**
- * Created by nblair on 2/15/17.
+ * Datastax Java driver backed {@link VideoDao}.
  */
+@Singleton
 public class DataStaxVideoDao implements VideoDao, FullTableScan<Video> {
 
   private final Session session;
@@ -29,8 +31,9 @@ public class DataStaxVideoDao implements VideoDao, FullTableScan<Video> {
   private final int batchSize;
 
   /**
+   * Defaults to keyspace of "examples", table name of "videos", and a batchsize of 100.
    *
-   * @param session
+   * @param session live datastax session
    */
   public DataStaxVideoDao(Session session) {
     this(session, "examples", "videos", 100);

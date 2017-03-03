@@ -4,3 +4,6 @@ cassandra:
   validationTimeout: 2 seconds
 swagger:
   resourcePackage: examples.resources
+videos:
+  updateFrequency: 1 hour
+

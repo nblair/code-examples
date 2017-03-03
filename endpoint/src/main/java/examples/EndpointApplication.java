@@ -6,11 +6,13 @@ import com.datastax.driver.extras.codecs.jdk8.InstantCodec;
 import examples.EndpointConfiguration.CassandraConfiguration;
 import examples.datastax.DataStaxVideoDao;
 import examples.resources.IllegalArgumentExceptionMapper;
+import examples.resources.VideoBloomFilterManager;
 import examples.resources.VideoResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.util.Duration;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
@@ -32,7 +34,20 @@ public class EndpointApplication extends Application<EndpointConfiguration> {
     environment.healthChecks().register("cassandra", cassandraHealthCheck);
 
     environment.jersey().register(new IllegalArgumentExceptionMapper(environment.metrics()));
-    VideoResource resource = new VideoResource(videoDao(configuration));
+
+    final VideoDao videoDao = videoDao(configuration);
+    // bloom filter manager
+    VideoBloomFilterManager videoBloomFilterManager = new VideoBloomFilterManager(
+      videoDao,
+      configuration.videos.getUpdateFrequency(),
+      configuration.videos.getRoughDatasetSize(),
+      configuration.videos.getBloomFilterFalsePositivePercentage(),
+      environment.metrics());
+
+    environment.lifecycle().manage(videoBloomFilterManager);
+
+    // REST API
+    VideoResource resource = new VideoResource(videoDao, videoBloomFilterManager);
     environment.jersey().register(resource);
   }
 
