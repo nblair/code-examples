@@ -3,6 +3,7 @@ package examples;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.extras.codecs.jdk8.InstantCodec;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import examples.EndpointConfiguration.CassandraConfiguration;
 import examples.datastax.DataStaxVideoDao;
 import examples.resources.IllegalArgumentExceptionMapper;
@@ -12,7 +13,6 @@ import io.dropwizard.Application;
 import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.dropwizard.util.Duration;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
@@ -55,6 +55,8 @@ public class EndpointApplication extends Application<EndpointConfiguration> {
   public void initialize(Bootstrap<EndpointConfiguration> bootstrap) {
     // supports loading of classpath configuration
     bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
+
+    bootstrap.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
     bootstrap.addBundle(new SwaggerBundle<EndpointConfiguration>() {
       @Override

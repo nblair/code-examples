@@ -1,5 +1,3 @@
-ext.dropwizardVersion = '1.0.5'
-
 dependencies {
   compile project(":datastax-java-driver-examples")
   compile "io.dropwizard:dropwizard-core:$dropwizardVersion"

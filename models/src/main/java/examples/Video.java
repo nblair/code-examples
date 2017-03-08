@@ -62,4 +62,40 @@ public class Video {
     this.userId = userId;
     return this;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Video video = (Video) o;
+
+    if (videoId != null ? !videoId.equals(video.videoId) : video.videoId != null) {
+      return false;
+    }
+    if (added != null ? !added.equals(video.added) : video.added != null) {
+      return false;
+    }
+    if (title != null ? !title.equals(video.title) : video.title != null) {
+      return false;
+    }
+    if (description != null ? !description.equals(video.description) : video.description != null) {
+      return false;
+    }
+    return userId != null ? userId.equals(video.userId) : video.userId == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = videoId != null ? videoId.hashCode() : 0;
+    result = 31 * result + (added != null ? added.hashCode() : 0);
+    result = 31 * result + (title != null ? title.hashCode() : 0);
+    result = 31 * result + (description != null ? description.hashCode() : 0);
+    result = 31 * result + (userId != null ? userId.hashCode() : 0);
+    return result;
+  }
 }

@@ -6,6 +6,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Charsets;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnel;
+import com.google.common.hash.Funnels;
 import com.google.common.hash.PrimitiveSink;
 import com.google.common.util.concurrent.Futures;
 import examples.Video;
@@ -58,12 +59,10 @@ public class VideoBloomFilterManager implements Managed {
       logger.info("building new bloomfilter");
       final Timer.Context context = timer.time();
       try {
-        BloomFilter<String> newFilter = BloomFilter.create(new Funnel<String>() {
-          @Override
-          public void funnel(String from, PrimitiveSink into) {
-            into.putString(from, Charsets.UTF_8);
-          }
-        }, expectedInsertions, falsePositiveProbability);
+        BloomFilter<String> newFilter = BloomFilter.create(
+          Funnels.stringFunnel(Charsets.UTF_8),
+          expectedInsertions,
+          falsePositiveProbability);
 
         videoDao.onEvery(v -> {
           newFilter.put(v.getVideoId().toString());

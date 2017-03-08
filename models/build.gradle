@@ -1,1 +1,4 @@
 // this file is intentionally blank, inherits all it needs from the root
+dependencies {
+  compile "javax.ws.rs:javax.ws.rs-api:2.0.1"
+}
