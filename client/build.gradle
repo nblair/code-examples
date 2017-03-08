@@ -1,0 +1,12 @@
+
+
+dependencies {
+  compile project(":models")
+  compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
+  compile "com.google.guava:guava:$guavaVersion"
+  compile "io.github.openfeign:feign-core:$feignVersion"
+  compile "io.github.openfeign:feign-jackson:$feignVersion"
+  compile "io.github.openfeign:feign-jaxrs:$feignVersion"
+
+  //compile "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
+}
