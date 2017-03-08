@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.github.nblair'
-version '0.0.1-SNAPSHOT'
+version '0.1.0-SNAPSHOT'
 
 subprojects {
 
