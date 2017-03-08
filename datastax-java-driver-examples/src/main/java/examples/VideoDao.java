@@ -14,15 +14,20 @@ public interface VideoDao {
    * Save a single video
    * @param video the video to save (not null)
    */
-  default void save(Video video) {
-    save(ImmutableList.of(video));
+  default Video save(Video video) {
+    Collection<Video> videos = save(ImmutableList.of(video));
+    if(videos.isEmpty()) {
+      return null;
+    }
+    return videos.iterator().next();
   }
 
   /**
    * Save a collection of videos.
-   * @param videos
+   * @param videos the videos to save
+   * @return a collection of the saved videos
    */
-  void save(Collection<Video> videos);
+  Collection<Video> save(Collection<Video> videos);
 
   /**
    *
