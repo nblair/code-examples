@@ -20,8 +20,9 @@ subprojects {
   ext.guavaVersion = '19.0'
   ext.jacksonVersion = '2.8.4'
   ext.jerseyVersion = '2.23.2'
+  ext.logbackVersion = '1.2.1'
   ext.springFrameworkVersion = '4.3.6.RELEASE'
-  ext.slf4jVersion = '1.7.7'
+  ext.slf4jVersion = '1.7.22'
 
   repositories {
     mavenCentral()

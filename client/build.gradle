@@ -8,5 +8,7 @@ dependencies {
   compile "io.github.openfeign:feign-jackson:$feignVersion"
   compile "io.github.openfeign:feign-jaxrs:$feignVersion"
 
-  //compile "org.glassfish.jersey.core:jersey-client:$jerseyVersion"
+  integrationTestCompile "com.datastax.cassandra:cassandra-driver-core:$datastaxVersion"
+  integrationTestCompile "org.slf4j:slf4j-api:$slf4jVersion"
+  integrationTestCompile "ch.qos.logback:logback-classic:$logbackVersion"
 }

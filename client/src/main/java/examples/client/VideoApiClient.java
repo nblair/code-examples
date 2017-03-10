@@ -73,7 +73,7 @@ public class VideoApiClient {
    */
   public BloomFilter<String> getBloomFilter() {
     Response response = metaApi.getBloomFilter();
-    if(response.status() == 204) {
+    if(response.status() != 200) {
       return null;
     }
     try {
