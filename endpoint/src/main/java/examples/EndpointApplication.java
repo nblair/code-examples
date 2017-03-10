@@ -45,6 +45,7 @@ public class EndpointApplication extends Application<EndpointConfiguration> {
       environment.metrics());
 
     environment.lifecycle().manage(videoBloomFilterManager);
+    environment.healthChecks().register("videoIdBloomFilter", new BloomFilterManagerHealthCheck(videoBloomFilterManager));
 
     // REST API
     VideoResource resource = new VideoResource(videoDao, videoBloomFilterManager);
