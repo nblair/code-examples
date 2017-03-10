@@ -6,4 +6,6 @@ swagger:
   resourcePackage: examples.resources
 videos:
   updateFrequency: 1 hour
+  roughDatasetSize: 500000
+  bloomFilterFalsePositivePercentage: 0.03
 
